@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('town_residence')->default('Tchuelekouet 1');
+            $table->string('occupation')->nullable();
+            $table->string('matrimonial_status')->default(0)->comment("0=>celibataire, 1 marié, 2 => other");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
