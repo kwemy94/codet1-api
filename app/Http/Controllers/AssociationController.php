@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Association;
-use App\Repositories\AssociationRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Repositories\AssociationRepository;
+use App\Http\Validation\AssociationValidation;
 
 class AssociationController extends Controller
 {
@@ -35,9 +37,20 @@ class AssociationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, AssociationValidation $associationValidation)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            $associationValidation->rules(),
+            $associationValidation->message()
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                "success" => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
     }
 
     /**

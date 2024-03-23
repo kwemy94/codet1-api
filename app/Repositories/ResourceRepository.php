@@ -43,5 +43,8 @@ abstract class ResourceRepository {
 
         return $this->model->where($attribute,$value)->get();
     }
+    public function getALl() {
+        return $this->model->all();
+    }
 }
 

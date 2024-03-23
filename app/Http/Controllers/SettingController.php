@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use App\Repositories\ProjectRepository;
 use App\Repositories\SettingRepository;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
     private $settingRepository;
+    private $projectRepository;
 
-    public function __construct(SettingRepository $settingRepository){
+    public function __construct(SettingRepository $settingRepository, ProjectRepository $projectRepository){
         $this->settingRepository = $settingRepository;
+        $this->projectRepository = $projectRepository;
     }
     
     /**
@@ -19,7 +22,15 @@ class SettingController extends Controller
      */
     public function index()
     {
-        //
+        $settings = $this->settingRepository->getAll();
+
+        $projets = $this->projectRepository->getAll();
+
+        return response()->json([
+            'status' => true,
+            'settings' => $settings,
+            'projets' => $projets,
+        ], 200);
     }
 
     /**

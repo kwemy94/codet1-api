@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->longText('description');
-            $table->tinyInteger('status')->default(0)->comment("0 => non publié, 1 => publié");
+        Schema::create('error_managers', function (Blueprint $table) {
+            $table->string('id', 30)->primary();
+            $table->string('action');
+            $table->text('message');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('error_mangers');
     }
 };

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
-use App\Repositories\ReportRepository;
 use Illuminate\Http\Request;
+use App\Repositories\ReportRepository;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Validation\RapportValidation;
 
 class ReportController extends Controller
 {
@@ -33,9 +35,20 @@ class ReportController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, RapportValidation $rapportValidation)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            $rapportValidation->rules(),
+            $rapportValidation->message()
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                "success" => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
     }
 
     /**

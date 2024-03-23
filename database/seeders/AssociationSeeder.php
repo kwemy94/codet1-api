@@ -20,6 +20,11 @@ class AssociationSeeder extends Seeder
                 "effective" => 60,
             ),
             array(
+                "name" => "Aucune",
+                "town" => "Aucune",
+                "effective" => null,
+            ),
+            array(
                 "name" => "Reunion Femme de Yaoundé",
                 "town" => "Yaoundé",
                 "effective" => 45,

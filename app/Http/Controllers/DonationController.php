@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Validation\DonationValidation;
 use App\Models\Donation;
-use App\Repositories\DonationRepository;
 use Illuminate\Http\Request;
+use App\Repositories\DonationRepository;
+use Illuminate\Support\Facades\Validator;
 
 class DonationController extends Controller
 {
@@ -32,9 +34,20 @@ class DonationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, DonationValidation $donationValidation)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            $donationValidation->rules(),
+            $donationValidation->message()
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                "success" => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
     }
 
     /**

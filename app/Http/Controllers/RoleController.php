@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
-use App\Repositories\RoleRepository;
 use Illuminate\Http\Request;
+use App\Repositories\RoleRepository;
+use App\Http\Validation\RoleValidation;
+use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
@@ -33,9 +35,20 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, RoleValidation $roleValidation)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            $roleValidation->rules(),
+            $roleValidation->message()
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                "success" => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
     }
 
     /**

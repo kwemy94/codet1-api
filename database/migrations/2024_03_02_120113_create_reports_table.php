@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('file', 100)->nullable();
             $table->text('content')->nullable();
-            $table->tinyInteger('is_published');
+            $table->tinyInteger('is_published')->default(0)->comment('0 => non publié, 1 => publié');
             $table->unsignedInteger('created_by');
             $table->softDeletes();
             $table->timestamps();

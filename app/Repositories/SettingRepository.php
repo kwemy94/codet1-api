@@ -15,4 +15,8 @@ class SettingRepository extends ResourceRepository {
         $this->model = $setting;
     }
 
+    public function getALl() {
+        return $this->model->all();
+    }
+
 }

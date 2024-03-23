@@ -16,7 +16,7 @@ class CardRepository extends ResourceRepository {
     }
 
     public function getAll(){
-        return $this->model->all();
+        return $this->model->orderByDesc('amount')->get();
     }
 
 }

@@ -43,7 +43,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::prefix('codet-v1')->group(function () {
     Route::resource('settings', SettingController::class);
     Route::resource('roles', RoleController::class);
-    Route::resource('association', AssociationController::class);
+    Route::resource('associations', AssociationController::class);
     Route::resource('reports', ReportController::class);
     Route::resource('donations', DonationController::class);
     Route::resource('payments', PaymentController::class);

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Validation\ProjectValidation;
 use App\Models\Project;
-use App\Repositories\ProjectRepository;
 use Illuminate\Http\Request;
+use App\Repositories\ProjectRepository;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
@@ -32,9 +34,20 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, ProjectValidation $projectValidation)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            $projectValidation->rules(),
+            $projectValidation->message()
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                "success" => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
     }
 
     /**
