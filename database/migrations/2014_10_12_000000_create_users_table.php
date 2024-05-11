@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
+            $table->char('sexe')->default('M');
             $table->string('email')->unique();
             $table->string('town_residence')->default('Tchuelekouet 1');
             $table->string('occupation')->nullable();
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

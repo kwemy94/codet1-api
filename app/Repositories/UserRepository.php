@@ -15,4 +15,8 @@ class UserRepository extends ResourceRepository {
         $this->model = $user;
     }
 
+    public function getById($id) {
+        return $this->model->where('id', $id)->first();
+    }
+
 }

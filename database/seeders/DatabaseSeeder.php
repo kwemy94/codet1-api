@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CardSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(SettingSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }

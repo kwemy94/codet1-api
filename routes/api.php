@@ -2,15 +2,16 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\AssociationController;
 use App\Http\Controllers\CardController;
-use App\Http\Controllers\DonationController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\DonationController;
+use App\Http\Controllers\AssociationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ use App\Http\Controllers\SettingController;
 //     return $request->user();
 // });
 
-Route::controller(AuthController::class)->group(function () {
+Route::controller(AuthController::class)->prefix('codet-v1')->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
     Route::post('logout', 'logout');
@@ -49,6 +50,7 @@ Route::prefix('codet-v1')->group(function () {
     Route::resource('payments', PaymentController::class);
     Route::resource('projects', ProjectController::class);
     Route::resource('/cards', CardController::class);
+    Route::resource('/user', UserController::class);
 });
 
 
