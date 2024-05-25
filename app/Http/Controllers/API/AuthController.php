@@ -9,13 +9,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Validation\UserValidation;
+use App\Repositories\SettingRepository;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function __construct()
+    private $settingRepository;
+    public function __construct(SettingRepository $settingRepository)
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->settingRepository = $settingRepository;
     }
 
     public function login(Request $request)
@@ -34,8 +37,10 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $settings = $this->settingRepository->getALl();
         return response()->json([
             'user' => $user,
+            'settings' => $settings,
             'authorization' => [
                 'token' => $token,
                 'type' => 'bearer',
