@@ -41,7 +41,10 @@ Route::controller(AuthController::class)->prefix('codet-v1')->group(function () 
  * du compte utilisateur avant de le connecter
  * valble pour les routes ci dessous (je pense)
  */
-Route::prefix('codet-v1')->group(function () {
+Route::group([
+    'middleware' => 'auth',
+    'prefix' =>'codet-v1'
+], function () {
     Route::resource('settings', SettingController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('associations', AssociationController::class);
